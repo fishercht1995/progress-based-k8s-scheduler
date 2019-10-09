@@ -2,7 +2,7 @@
 
 ## set up kubernetes clusters
 
-git clone https://github.com/fishercht1995/cloudinstall.git
+git clone https://github.com/fishercht1995/progress-based-k8s-scheduler.git
 
 
 There is detailed version from Shaolun Zhang
@@ -13,17 +13,17 @@ https://github.com/zsl3203/summer
 
 deploy k8s system
 ```
-./cloudinstall/kubernetes/deploy.sh
+./progress-based-k8s-scheduler/kubernetes/deploy.sh
 ```
 init k8s in the master node, and get `token`
 ```
-./cloudinstall/kubernetes/init.sh
+./progress-based-k8s-scheduler/kubernetes/init.sh
 ```
 
 ### in worker node
 deploy k8s system
 ```
-./cloudinstall/kubernetes/deploy.sh
+./progress-based-k8s-scheduler/kubernetes/deploy.sh
 ```
 Using Token get in the first step, so the worker will join into k8s cluster
 
@@ -31,11 +31,11 @@ Using Token get in the first step, so the worker will join into k8s cluster
 
 ### in worker
 ```
-./cloudinstall/pgmonitor/slave.sh
+./progress-based-k8s-scheduler/pgmonitor/slave.sh
 ```
 ### in master
 ```
-./cloudinstall/pgmonitor/master.sh
+./progress-based-k8s-scheduler/pgmonitor/master.sh
 ```
 ### Dashboards
 ```
