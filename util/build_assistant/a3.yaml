@@ -1,0 +1,21 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: ass3
+  namespace: kube-system
+spec:
+  serviceAccountName: my-scheduler
+  nodeName: worker-3.workwork.shield-pg0.utah.cloudlab.us
+  restartPolicy: Never
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: pvc1-nfs-system
+  containers:
+    - name: vae-test-epoch
+      image: fuyuqi1995/assistance
+      command: ["python"]
+      args: ["app.py","worker-3.workwork.shield-pg0.utah.cloudlab.us","1","1600"]
+      volumeMounts:
+        - mountPath: "/data/"
+          name: task-pv-storage
