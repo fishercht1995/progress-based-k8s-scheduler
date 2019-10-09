@@ -5,9 +5,11 @@ install files
 ### prometheus + grafana for k8s
 
 ### Useful Links:
-https://github.com/kubernetes-client/python/blob/master/kubernetes/docs/CoreV1Api.md \\
-https://docs.docker.com/get-started/ \\
-https://kubernetes.io/docs/home/ . \\
+
+
+https://github.com/kubernetes-client/python/blob/master/kubernetes/docs/CoreV1Api.md 
+https://docs.docker.com/get-started/ 
+https://kubernetes.io/docs/home/ 
 
 ### k8s control
 get/delete/describe/logs/ \\
