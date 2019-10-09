@@ -4,6 +4,11 @@
 
 git clone https://github.com/fishercht1995/cloudinstall.git
 
+
+There is detailed version from Shaolun Zhang
+https://github.com/zsl3203/summer
+
+
 ### in master node
 
 deploy k8s system
@@ -31,6 +36,10 @@ Using Token get in the first step, so the worker will join into k8s cluster
 ### in master
 ```
 ./cloudinstall/pgmonitor/master.sh
+```
+### Dashboards
+```
+Dashboards Import: https:///dashboards/315
 ```
 
 ## set up nfs system
