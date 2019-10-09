@@ -34,3 +34,12 @@ role based assess control(RBAC)
 kubectl get pod -o=custom-columns=NODE:.spec.nodeName,NAME:.metadata.name
 
 
+### Client Api
+
+When your program lanch kubernetes system config, the code is slightly different in pod and master local environment. 
+
+In pod:
+```
+config.load_incluster_config()
+v1 = client.CoreV1Api()
+```
