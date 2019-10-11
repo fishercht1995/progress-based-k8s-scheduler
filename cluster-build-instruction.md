@@ -29,10 +29,6 @@ Using Token get in the first step, so the worker will join into k8s cluster
 
 ## set up prometheus and grafana monitor system
 
-### in worker
-```
-./progress-based-k8s-scheduler/pgmonitor/slave.sh
-```
 ### in master
 ```
 ./progress-based-k8s-scheduler/pgmonitor/master.sh
