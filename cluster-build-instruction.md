@@ -56,6 +56,7 @@ sudo chmod 777 /mnt/linuxidc
 
 sudo nano /etc/exports
 
+/mnt/linuxidc masterIP(rw,sync,no_subtree_check)
 /mnt/linuxidc client1IP(rw,sync,no_subtree_check)
 /mnt/linuxidc client2IP(rw,sync,no_subtree_check)
 
@@ -98,7 +99,9 @@ add after config file
 
 ### step 2
 
-change `pv` config for its service ip address
+change `pv` and `pv0` config for its service ip address
+
+apply `pv`,`pv0`,`pvc`,`pvc0`
 
 ### step 3
 
