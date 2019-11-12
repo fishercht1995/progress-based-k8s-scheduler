@@ -96,6 +96,7 @@ add after config file
   - list
   - get
 ```
+change AUTH
 ```
 - apiGroups:
   - ""
