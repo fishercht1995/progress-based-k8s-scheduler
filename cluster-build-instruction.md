@@ -96,7 +96,18 @@ add after config file
   - list
   - get
 ```
-
+```
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - delete
+  - get
+  - list
+  - watch
+  - create
+```
 ### step 2
 
 change `pv` and `pv0` config for its service ip address
