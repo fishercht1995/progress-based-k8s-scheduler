@@ -13,12 +13,7 @@ apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
 
 cat > /etc/docker/daemon.json <<EOF
 {
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
+  "experimental" : true
 }
 EOF
 
