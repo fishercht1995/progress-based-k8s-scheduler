@@ -1,4 +1,6 @@
-# Build a cluster for own-designed k8s scheduler
+# Build kubernetes scheduler
+
+Based on Kubernetes 15.3
 
 ## set up kubernetes clusters
 
