@@ -1,6 +1,6 @@
 # Build kubernetes scheduler
 
-Based on Kubernetes 15.3
+Based on Kubernetes 1.15.3
 
 ## set up kubernetes clusters
 
