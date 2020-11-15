@@ -76,8 +76,6 @@ sudo mount master_ip:/mnt/linuxidc /mnt/linuxidc_client
 
 ## set up configuration in kubernetes
 
-### step 1
-
 ```
 kubectl edit clusterrole system:kube-scheduler
 ```
@@ -109,19 +107,4 @@ change AUTH
   - watch
   - create
 ```
-### step 2
-
-change `pv` and `pv0` config for its service ip address
-
-apply `pv`,`pv0`,`pvc`,`pvc0`
-
-### step 3
-
-change `assistance pod` config for their node name
-
-adjust the number of assistance pod
-
-### step 4
-
-change `scheduler pod` config for its node name
 
