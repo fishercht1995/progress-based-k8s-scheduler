@@ -12,7 +12,7 @@ v1 = client.CoreV1Api()
 
 scheduler_name = "my-scheduler"
 import logging
-log = open("/data/scheduler.log","a")
+#log = open("/data/scheduler.log","a")
 job_result = open("/data/job_result.log","w")
 job_result.write("job,end_time\n")
 #logging.basicConfig(filename="/data/scheduler.log", filemode="a", format="%(asctime)s:%(message)s",level=logging.DEBUG)
@@ -33,7 +33,7 @@ def nodes_available():
                     break
             else:
                 if status.status == "True":
-                    log.write("Reason:" + status.type + "\n")
+                    #log.write("Reason:" + status.type + "\n")
                     ready_nodes.remove(n.metadata.name)
                     break
     for node in ready_nodes:
@@ -94,7 +94,7 @@ def get_job_info(pod_name):
         iteration_time = float(info.loc[last,"epoch_time"])
         return (total_iteration,current_iteration,iteration_time)
     except Exception as e:
-        log.write(str(e))
+        #log.write(str(e))
         total_iteration = get_total_iteration(pod_name)
         return (total_iteration, -1, 0)
 
@@ -107,18 +107,18 @@ def cal_EC(pods,U,pod_submit):
         total_iteration,current_iteration,iteration_time = get_job_info(pod)
         if current_iteration != -1:
             P[pod] = (iteration_time*U)*(total_iteration-current_iteration)
-            log.write("iteration_time:{}\ttotal_iteration:{}\tcurrent_iteration:{}\n".format(str(iteration_time),
+            #log.write("iteration_time:{}\ttotal_iteration:{}\tcurrent_iteration:{}\n".format(str(iteration_time),
                                                                                              str(total_iteration),
                                                                                              str(current_iteration)))
         else:
             P[pod] = ((sys_time-pod_submit[pod])*U)*total_iteration
-            log.write("sys_time:{}\tpod_submit:{}\ttotal_iteration:{}\n".format(str(sys_time),
+            #log.write("sys_time:{}\tpod_submit:{}\ttotal_iteration:{}\n".format(str(sys_time),
                                                                                 str(pod_submit[pod]),
                                                                                 str(total_iteration)))
         if P[pod] > max_P:
             max_P = P[pod]
-        log.write("pod:{},P:{}\n".format(pod,str(P[pod])))
-    log.write("\n")
+        #log.write("pod:{},P:{}\n".format(pod,str(P[pod])))
+    #log.write("\n")
     EJR = {}
     for i in range(int(max_P+1)):
         EJR[i] = 0
@@ -153,50 +153,51 @@ def algorithm_2(nodes,nodes_pods_dict,pod_submit):
         #logging.warning("In node:{}\tstatus:{}\tC:{}\tjobs number:{}".format(node, node_report[0],
         #                                                                     str(node_report[1]),
         #                                                                     str(nodes_pods_nums)))
-        log.write("In node:{}\nstatus:{}\tC:{}\tjobs number:{}\n".format(node, node_report[0],
+        #log.write("In node:{}\nstatus:{}\tC:{}\tjobs number:{}\n".format(node, node_report[0],
                                                                              str(node_report[1]),
                                                                             str(nodes_pods_nums)))
-        log.write("P_info:\n{}\n".format(node_report[3]))
-        log.flush()
+        #log.write("P_info:\n{}\n".format(node_report[3]))
+        #log.flush()
         if node_report[0] != "outoflimit":
             CS[node] = node_report
     if len(CS.keys()) > 0:
         #logging.warning("since |CS|>0, sort CS")
-        log.write("since |CS|>0, sort CS\n")
+        #log.write("since |CS|>0, sort CS\n")
         #choose the node with miniminal C
         sorted_CS = sorted(CS.items(),key=lambda x: x[1][1])
         for item in sorted_CS:
-            log.write("node:{}\tC:{}\n".format(item[0], str(item[1][1])))
-            log.flush()
+            #log.write("node:{}\tC:{}\n".format(item[0], str(item[1][1])))
+            #log.flush()
             #logging.warning("node:{}\tC:{}".format(item[0],str(item[1][1])))
         return sorted_CS[0][0]
     else:
         try:
             #logging.warning("since |CS| == 0, recalculate EC")
-            log.write("since |CS| == 0, recalculate EC\n")
+            #log.write("since |CS| == 0, recalculate EC\n")
             #recalculate EC
             EC = {}
             for node in nodes_pods_dict:
                 U = (len(nodes_pods_dict[node]))
-                log.write("U:{}\n".format(str(U)))
-                log.write("node:{}\n".format(node))
+                #log.write("U:{}\n".format(str(U)))
+                #log.write("node:{}\n".format(node))
                 EC[node] = cal_EC(nodes_pods_dict[node],U,pod_submit)
                 EC[node] *= len(nodes_pods_dict[node])
-                log.write("node:{}\tEC:{}\n".format(node,str(EC[node])))
+                #log.write("node:{}\tEC:{}\n".format(node,str(EC[node])))
             sorted_ES = sorted(EC.items(),key = lambda x:x[1])
             for item in sorted_ES:
-                log.write("node:{}\tEC:{}\n".format(item[0],str(item[1])))
-                log.flush()
+                #log.write("node:{}\tEC:{}\n".format(item[0],str(item[1])))
+                #log.flush()
+                pass
             #logging.warning("node:{}\tEC:{}".format(item[0],str(item[1])))
             return sorted_ES[0][0]
         except Exception as e:
-            log.write(str(e))
-            log.flush()
+            #log.write(str(e))
+            #log.flush()
 
 def check_pod(target_pod):
     pod = v1.read_namespaced_pod(namespace="default", name=target_pod)
     if pod.status.phase == "Succeeded":
-        log.write("pod{} terminated because of Completed\n".format(target_pod))
+        #log.write("pod{} terminated because of Completed\n".format(target_pod))
         job_result.write("{},{}\n".format(target_pod,str(time.time())))
         job_result.flush()
         log.flush()
@@ -236,13 +237,13 @@ def main():
             if pod_name == new_pod_name:
                 continue
             pod_name = new_pod_name
-            log.write("{}:{} need to be scheduled\n".format(str(time.time()),pod_name))
-            log.flush()
+            #log.write("{}:{} need to be scheduled\n".format(str(time.time()),pod_name))
+            #log.flush()
             try:
                 pod_submit[event['object'].metadata.name] = float(time.time())
                 nodes = nodes_available()
-                log.write("There are "+str(len(nodes))+" nodes available\n")
-                log.flush()
+                #log.write("There are "+str(len(nodes))+" nodes available\n")
+                #log.flush()
                 #logging.warning("There are "+str(len(nodes))+" nodes available")
                 while True:
                     nodes = nodes_available()
@@ -254,14 +255,14 @@ def main():
                 f.write(str(event['object'].metadata.name) + ","+str(float(time.time()))+"\n")
                 f.flush()
                 f.close()
-                log.write("Implement job:{} to node:{}\n".format(event['object'].metadata.name, node))
-                log.flush()
+                #log.write("Implement job:{} to node:{}\n".format(event['object'].metadata.name, node))
+                #log.flush()
                 res = scheduler(event['object'].metadata.name, node)
                 #logging.warning("Implement job:{} to node:{}".format(event['object'].metadata.name,node))
                 print event['object'].metadata.name+" has been locate to "+node
             except client.rest.ApiException as e:
                 print json.loads(e.body)['message']
-    log.close()
+    #log.close()
 
 
 if __name__ == '__main__':
